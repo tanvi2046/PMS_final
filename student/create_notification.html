@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Create Message</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="all">
+    <link rel="stylesheet" href="../index_files/mbcsmbmcp.css" type="text/css" />
+    <link  rel="stylesheet" href="../css/bootstrap.min.css">
+
+
+    <script type="text/javascript" src="../js/view.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+
+    <script>
+        // wait for the DOM to be loaded
+        $(document).ready(function() {
+            // bind 'myForm' and provide a simple callback function
+            $('#form_47332').ajaxForm(function(response) {
+                if(response=='success'){
+                    alert("notification created");
+                    location.reload();
+
+                }else{
+                    alert("something is wrond");
+                }
+            });
+
+
+            $.ajax({
+                url: '/pms/php/user_pro.php',
+                dataType: 'JSON',
+                //data: data,
+                method: 'POST',
+                async: true,
+                success: function callback(data) {
+                    var str='<option value="" selected="selected"></option>';
+
+                    for(var i=0;i<data.pro.length;i++){
+                        str=str+'<option value="'+data.pro[i].projectID+'" >'+data.pro[i].name+'</option>';
+                    }
+
+
+
+                    $("#pro_id").html(str);
+
+
+                }
+            });
+
+
+        });
+
+
+    </script>
+
+    <script>
+        $(function(){
+            $("#mbmcpebul_wrapper").load("nav_left.html");
+        });
+    </script>
+    <style>
+        .alert {
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body id="main_body"  >
+
+
+    <div class="col-md- 2">
+        <img src="../images/finallogo.png" width="200" height="150">
+        <!--<img id="top" src="../images/top.png" alt="">-->
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-2"  id="mbmcpebul_wrapper" style="width: 136px;">
+
+        </div>
+        <div class="col-md-10" style="margin-left: 100px" id="form_container">
+            <h1><a>Create Notification</a></h1>
+            <form id="form_47332" class="appnitro"  method="post" action="/pms/php/createnotification.php">
+                <div class="form_description">
+                    <h2>Message Posting</h2>
+                    <p></p>
+                </div>
+                <ul >
+
+                    <li id="li_1" >
+                        <label class="description" for="element_1">Title</label>
+                        <div>
+                            <input id="note_t" name="title" class="element text medium" type="text" maxlength="255" value=""/>
+                        </div>
+                    </li>
+
+                    <li id="li_2" >
+                        <label class="description" for="element_2">Description</label>
+                        <div>
+                            <input id="note_desc" name="desc" class="element text medium" type="text" maxlength="255" value=""/>
+                        </div>
+                    </li>
+
+                    <li id="li_7" >
+                        <label class="description" for="element_7">Select Project </label>
+                        <div>
+                            <select class="element select medium" id="pro_id" name="pro_id">
+
+
+                            </select>
+                        </div>
+                    </li>
+
+                    <li id="li_3" style="display: none;" >
+                        <label class="description" for="element_3_1">Start Date </label>
+                        <span>
+                            <input id="element_3_1" name="start" class="element text" size="2" maxlength="2" value="" type="date">
+                            <label for="element_3_1">MM</label>
+                        </span>
+                    </li>
+
+                    <li id="li_4" style="display: none;">
+                        <label class="description" for="element_4_1">End Date </label>
+                            <span>
+                                <input id="element_4_1" name="end" class="element text" size="2" maxlength="2" value="" type="date">
+                            </span>
+                    </li>
+
+
+
+                    <li class="buttons">
+                        <input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
+                    </li>
+                </ul>
+            </form>
+
+
+
+        </div>
+    </div>
+    <!--<div id="footer">-->
+        <!--Generated by <a> Apollo X</a>-->
+    <!--</div>-->
+    <!--<img id="bottom" src="../images/bottom.png" alt="">-->
+
+</body>
+</html>
